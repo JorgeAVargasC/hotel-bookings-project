@@ -14,10 +14,10 @@ dist/
 .ipynb_checkpoints/
 
 # Datos: el cuaderno 01 descarga hotels.csv si falta y verifica su SHA-256
-data/raw/*
-!data/raw/.gitkeep
-data/interim/
-data/processed/
+content/data/raw/*
+!content/data/raw/.gitkeep
+content/data/interim/
+content/data/processed/
 
 # Modelos serializados
 *.pkl

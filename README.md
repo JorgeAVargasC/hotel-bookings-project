@@ -33,7 +33,7 @@ Uno por sesión de la asignatura, en el mismo orden que los laboratorios. Cada u
 
 | # | Notebook | Pregunta que responde | Entra | Sale | Estado |
 |---|---|---|---|---|---|
-| 01 | `01-data-collection-and-quality` | ¿Son los datos correctos? ¿Qué está prohibido? ¿Avanza el lote? | `data/raw/hotels.csv` | contrato, scorecard, columnas prohibidas | ✅ |
+| 01 | `01-data-collection-and-quality` | ¿Son los datos correctos? ¿Qué está prohibido? ¿Avanza el lote? | `content/data/raw/hotels.csv` | contrato, scorecard, columnas prohibidas | ✅ |
 | 02 | `02-eda-and-cleaning` | ¿Cómo son los datos y cómo se limpian? | salidas del 01 | dataset limpio, cuarentena, decisiones | ⏳ |
 | 03 | `03-feature-engineering-and-transformation` | ¿Qué entra en el modelo y cómo se transforma? | dataset limpio | variables derivadas + transformador (sin ajustar) | ⏳ |
 | 04 | `04-experimental-design-partitioning-and-metrics` | ¿Cómo se parte y se evalúa? | dataset limpio + transformador | partición, métricas, *baselines* | ⏳ |
@@ -43,7 +43,7 @@ Uno por sesión de la asignatura, en el mismo orden que los laboratorios. Cada u
 
 ## Salidas del notebook 01
 
-Carpeta `outputs/01-data-collection-and-quality/`:
+Carpeta `content/outputs/01-data-collection-and-quality/`:
 
 | Archivo | Qué contiene |
 |---|---|
@@ -59,9 +59,9 @@ Carpeta `outputs/01-data-collection-and-quality/`:
 
 | Ruta | Contenido |
 |---|---|
-| `data/raw/hotels.csv` | Fuente original. **Nunca se modifica**. Se descarga sola si falta |
+| `content/data/raw/hotels.csv` | Fuente original. **Nunca se modifica**. Se descarga sola si falta |
 | `notebooks/` | Los notebooks, numerados |
-| `outputs/<notebook>/` | Lo que genera cada notebook |
+| `content/outputs/<notebook>/` | Lo que genera cada notebook |
 | `requirements.txt` | Dependencias |
 
 ## Datos

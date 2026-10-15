@@ -1,0 +1,303 @@
+{
+  "identity": {
+    "dataset": "hotel-booking-demand",
+    "version": "1.0.0",
+    "doi": "10.1016/j.dib.2018.11.126",
+    "license": "CC BY 4.0",
+    "sha256": "7c2ae42a7353905ea136e5c2287f17c92c5435826598bfbb8491c6f0c7b1fc06"
+  },
+  "purpose": {
+    "targets": {
+      "classification": "is_canceled",
+      "regression": "adr"
+    },
+    "unit": "one booking",
+    "prediction_time": "when the booking is registered (booking_date = arrival_date - lead_time)",
+    "forbidden_features": [
+      "required_car_parking_spaces",
+      "booking_changes",
+      "assigned_room_type",
+      "reservation_status",
+      "reservation_status_date"
+    ],
+    "features_under_review": [
+      "stays_in_*_nights",
+      "adults / children / babies",
+      "meal",
+      "days_in_waiting_list",
+      "deposit_type",
+      "total_of_special_requests",
+      "country",
+      "adr (as a classification input)"
+    ]
+  },
+  "schema": {
+    "hotel": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "is_canceled": {
+      "type": "binary",
+      "role": "target_cls"
+    },
+    "lead_time": {
+      "type": "count_days",
+      "role": "feature"
+    },
+    "arrival_date_year": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "arrival_date_month": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "arrival_date_week_number": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "arrival_date_day_of_month": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "stays_in_weekend_nights": {
+      "type": "count",
+      "role": "feature"
+    },
+    "stays_in_week_nights": {
+      "type": "count",
+      "role": "feature"
+    },
+    "adults": {
+      "type": "count",
+      "role": "feature"
+    },
+    "children": {
+      "type": "count",
+      "role": "feature",
+      "sentinel": {
+        "value": "NA",
+        "meaning": "missing"
+      }
+    },
+    "babies": {
+      "type": "count",
+      "role": "feature"
+    },
+    "meal": {
+      "type": "categorical",
+      "role": "feature",
+      "sentinel": {
+        "value": "Undefined",
+        "meaning": "same as SC (no meal plan)"
+      }
+    },
+    "country": {
+      "type": "categorical",
+      "role": "feature",
+      "sentinel": {
+        "value": "NULL",
+        "meaning": "missing"
+      }
+    },
+    "market_segment": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "distribution_channel": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "is_repeated_guest": {
+      "type": "binary",
+      "role": "feature"
+    },
+    "previous_cancellations": {
+      "type": "count",
+      "role": "feature"
+    },
+    "previous_bookings_not_canceled": {
+      "type": "count",
+      "role": "feature"
+    },
+    "reserved_room_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "assigned_room_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "booking_changes": {
+      "type": "count",
+      "role": "feature"
+    },
+    "deposit_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "agent": {
+      "type": "id_code",
+      "role": "feature",
+      "sentinel": {
+        "value": "NULL",
+        "meaning": "not applicable (booking without an agency)"
+      }
+    },
+    "company": {
+      "type": "id_code",
+      "role": "feature",
+      "sentinel": {
+        "value": "NULL",
+        "meaning": "not applicable (booking without a company)"
+      }
+    },
+    "days_in_waiting_list": {
+      "type": "count_days",
+      "role": "feature"
+    },
+    "customer_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "adr": {
+      "type": "continuous",
+      "role": "target_reg",
+      "min": 0,
+      "max": 1000,
+      "unit": "€/night (currency not stated in the paper)"
+    },
+    "required_car_parking_spaces": {
+      "type": "count",
+      "role": "feature"
+    },
+    "total_of_special_requests": {
+      "type": "count",
+      "role": "feature"
+    },
+    "reservation_status": {
+      "type": "categorical",
+      "role": "outcome"
+    },
+    "reservation_status_date": {
+      "type": "date",
+      "role": "outcome"
+    }
+  },
+  "quality": [
+    {
+      "control": "source_hash",
+      "operator": "==",
+      "threshold": 1,
+      "severity": "critical",
+      "on_failure": "stop and download again"
+    },
+    {
+      "control": "rows",
+      "operator": "==",
+      "threshold": 119390,
+      "severity": "critical",
+      "on_failure": "stop and investigate"
+    },
+    {
+      "control": "columns",
+      "operator": "==",
+      "threshold": 32,
+      "severity": "critical",
+      "on_failure": "stop and investigate"
+    },
+    {
+      "control": "is_canceled_valid_%",
+      "operator": "==",
+      "threshold": 100,
+      "severity": "critical",
+      "on_failure": "stop and investigate"
+    },
+    {
+      "control": "adr_present_%",
+      "operator": "==",
+      "threshold": 100,
+      "severity": "critical",
+      "on_failure": "stop and investigate"
+    },
+    {
+      "control": "arrival_date_valid_%",
+      "operator": "==",
+      "threshold": 100,
+      "severity": "critical",
+      "on_failure": "stop and investigate"
+    },
+    {
+      "control": "period_covered_%",
+      "operator": "==",
+      "threshold": 100,
+      "severity": "critical",
+      "on_failure": "stop and investigate"
+    },
+    {
+      "control": "exact_copies_%",
+      "operator": "<",
+      "threshold": 5,
+      "severity": "warning",
+      "on_failure": "define a duplicates policy"
+    },
+    {
+      "control": "country_present_%",
+      "operator": ">=",
+      "threshold": 99,
+      "severity": "warning",
+      "on_failure": "flag missingness"
+    },
+    {
+      "control": "negative_adr",
+      "operator": "==",
+      "threshold": 0,
+      "severity": "critical",
+      "on_failure": "quarantine"
+    },
+    {
+      "control": "adr_out_of_domain",
+      "operator": "==",
+      "threshold": 0,
+      "severity": "critical",
+      "on_failure": "quarantine"
+    },
+    {
+      "control": "no_guests",
+      "operator": "==",
+      "threshold": 0,
+      "severity": "critical",
+      "on_failure": "quarantine"
+    },
+    {
+      "control": "zero_nights",
+      "operator": "==",
+      "threshold": 0,
+      "severity": "warning",
+      "on_failure": "exclude from the regression"
+    },
+    {
+      "control": "non_iso_country",
+      "operator": "==",
+      "threshold": 0,
+      "severity": "warning",
+      "on_failure": "review CN/CHN mapping"
+    },
+    {
+      "control": "forbidden_columns",
+      "operator": "==",
+      "threshold": 0,
+      "severity": "critical",
+      "on_failure": "exclude them from the features"
+    }
+  ],
+  "service": {
+    "type": "static snapshot",
+    "refresh": "none",
+    "access": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv",
+    "period": "arrivals 2015-07-01 to 2017-08-31"
+  },
+  "evolution": {
+    "policy": "change of file, columns, thresholds or meaning of a sentinel → new version"
+  }
+}

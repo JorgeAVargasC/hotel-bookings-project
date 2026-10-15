@@ -1,0 +1,15 @@
+dimension,metric,value,unit
+completeness,is_canceled present,100.0,%
+completeness,adr present,100.0,%
+completeness,country present (≠ NULL),99.6,%
+completeness,children present (≠ NA),100.0,%
+uniqueness,surplus exact copies,26.8,%
+validity,"is_canceled in {0, 1}",100.0,%
+validity,valid arrival date,100.0,%
+validity,rows with adr < 0,1.0,rows
+validity,rows with adr > 1000,1.0,rows
+validity,rows without guests,180.0,rows
+validity,rows with 0 nights,715.0,rows
+validity,non ISO alpha-3 country code,1279.0,rows
+consistency,week of year consistent with the date,100.0,%
+consistency,Check-Out: status date = arrival + nights,100.0,%

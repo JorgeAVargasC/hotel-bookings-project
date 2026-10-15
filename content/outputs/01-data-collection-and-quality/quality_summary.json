@@ -1,0 +1,32 @@
+{
+  "dataset": "hotel-booking-demand",
+  "contract_version": "1.0.0",
+  "decision": "CONTINUE_WITH_CONDITIONS",
+  "passed_controls": 8,
+  "failed_controls": 7,
+  "rows_to_quarantine": 182,
+  "rows_excluded_from_regression": 715,
+  "forbidden_features": [
+    "required_car_parking_spaces",
+    "booking_changes",
+    "assigned_room_type",
+    "reservation_status",
+    "reservation_status_date"
+  ],
+  "features_under_review": [
+    "stays_in_*_nights",
+    "adults / children / babies",
+    "meal",
+    "days_in_waiting_list",
+    "deposit_type",
+    "total_of_special_requests",
+    "country",
+    "adr (as a classification input)"
+  ],
+  "pending_decisions_for_02": [
+    "exact duplicates: drop, group within the split or weight",
+    "adr = 0 with nights > 0 (mostly Complementary): exclude from the regression or not",
+    "CN versus CHN: unify or not",
+    "sentinels: NULL in agent/company = 'none'; NULL in country = 'unknown'; Undefined in meal = SC"
+  ]
+}

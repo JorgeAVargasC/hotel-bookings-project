@@ -1,0 +1,46 @@
+# Entorno virtual
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Datos: el cuaderno 01 descarga hotels.csv si falta y verifica su SHA-256
+data/raw/*
+!data/raw/.gitkeep
+data/interim/
+data/processed/
+
+# Modelos serializados
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# Cachés de herramientas
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+mlruns/
+catboost_info/
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# IDE y sistema operativo
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini

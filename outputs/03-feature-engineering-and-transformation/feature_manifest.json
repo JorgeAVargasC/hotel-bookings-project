@@ -1,0 +1,227 @@
+{
+  "input": {
+    "path": "data/interim/hotels_clean.csv",
+    "signature": "8bd9d0f20425e9af93567c0047cbec4a60fc55326fc7911d6d0ca9ca8f98de81",
+    "contract_version": "1.1.0"
+  },
+  "output": {
+    "path": "data/processed/hotels_features.csv",
+    "rows": 119208,
+    "columns": 58,
+    "new_columns": [
+      "booking_date",
+      "arrival_doy_sin",
+      "arrival_doy_cos",
+      "arrival_dow_sin",
+      "arrival_dow_cos",
+      "lead_time_log1p",
+      "previous_cancellations_log1p",
+      "previous_bookings_not_canceled_log1p",
+      "adr_log1p",
+      "weekend_night_share",
+      "has_kids",
+      "was_on_waiting_list"
+    ],
+    "read_as_text": [
+      "agent",
+      "company",
+      "agent_std",
+      "company_std",
+      "country",
+      "country_std",
+      "reserved_room_type"
+    ],
+    "parse_dates": [
+      "arrival_date",
+      "booking_date"
+    ]
+  },
+  "prediction_time": "when the booking is registered (booking_date)",
+  "targets": {
+    "classification": "is_canceled",
+    "regression": "adr (rows with in_regression = True)"
+  },
+  "preprocessing": {
+    "numeric": "SimpleImputer(median) → RobustScaler",
+    "binary": "passthrough",
+    "cyclic": "passthrough",
+    "nominal": "SimpleImputer(constant 'missing') → OneHotEncoder(handle_unknown='ignore')",
+    "high_cardinality": "SimpleImputer(constant 'missing') → OneHotEncoder(min_frequency=0.005, handle_unknown='infrequent_if_exist')",
+    "remainder": "drop"
+  },
+  "variants": {
+    "classification_base": {
+      "columns": {
+        "numeric": [
+          "lead_time_log1p",
+          "previous_cancellations_log1p",
+          "previous_bookings_not_canceled_log1p"
+        ],
+        "binary": [
+          "is_repeated_guest"
+        ],
+        "cyclic": [
+          "arrival_doy_sin",
+          "arrival_doy_cos",
+          "arrival_dow_sin",
+          "arrival_dow_cos"
+        ],
+        "nominal": [
+          "hotel",
+          "market_segment_std",
+          "distribution_channel_std",
+          "customer_type",
+          "reserved_room_type"
+        ],
+        "high_cardinality": [
+          "agent_std",
+          "company_std"
+        ]
+      },
+      "output_columns_in_check": 66
+    },
+    "classification_with_review": {
+      "columns": {
+        "numeric": [
+          "lead_time_log1p",
+          "previous_cancellations_log1p",
+          "previous_bookings_not_canceled_log1p",
+          "total_nights",
+          "weekend_night_share",
+          "total_guests",
+          "total_of_special_requests",
+          "adr_log1p"
+        ],
+        "binary": [
+          "is_repeated_guest",
+          "has_kids",
+          "was_on_waiting_list"
+        ],
+        "cyclic": [
+          "arrival_doy_sin",
+          "arrival_doy_cos",
+          "arrival_dow_sin",
+          "arrival_dow_cos"
+        ],
+        "nominal": [
+          "hotel",
+          "market_segment_std",
+          "distribution_channel_std",
+          "customer_type",
+          "reserved_room_type",
+          "meal_std"
+        ],
+        "high_cardinality": [
+          "country_std",
+          "agent_std",
+          "company_std"
+        ]
+      },
+      "output_columns_in_check": 96
+    },
+    "regression_base": {
+      "columns": {
+        "numeric": [
+          "lead_time_log1p",
+          "previous_cancellations_log1p",
+          "previous_bookings_not_canceled_log1p",
+          "total_nights",
+          "weekend_night_share",
+          "total_guests"
+        ],
+        "binary": [
+          "is_repeated_guest",
+          "has_kids"
+        ],
+        "cyclic": [
+          "arrival_doy_sin",
+          "arrival_doy_cos",
+          "arrival_dow_sin",
+          "arrival_dow_cos"
+        ],
+        "nominal": [
+          "hotel",
+          "market_segment_std",
+          "distribution_channel_std",
+          "customer_type",
+          "reserved_room_type",
+          "meal_std"
+        ],
+        "high_cardinality": [
+          "agent_std",
+          "company_std"
+        ]
+      },
+      "output_columns_in_check": 74
+    },
+    "regression_with_review": {
+      "columns": {
+        "numeric": [
+          "lead_time_log1p",
+          "previous_cancellations_log1p",
+          "previous_bookings_not_canceled_log1p",
+          "total_nights",
+          "weekend_night_share",
+          "total_guests",
+          "total_of_special_requests"
+        ],
+        "binary": [
+          "is_repeated_guest",
+          "has_kids",
+          "was_on_waiting_list"
+        ],
+        "cyclic": [
+          "arrival_doy_sin",
+          "arrival_doy_cos",
+          "arrival_dow_sin",
+          "arrival_dow_cos"
+        ],
+        "nominal": [
+          "hotel",
+          "market_segment_std",
+          "distribution_channel_std",
+          "customer_type",
+          "reserved_room_type",
+          "meal_std"
+        ],
+        "high_cardinality": [
+          "country_std",
+          "agent_std",
+          "company_std"
+        ]
+      },
+      "output_columns_in_check": 95
+    }
+  },
+  "learned_on_train_only": [
+    "numeric medians (imputation)",
+    "RobustScaler medians and IQR",
+    "one-hot vocabularies",
+    "infrequent levels (min_frequency = 0.005)"
+  ],
+  "unknown_category_policy": {
+    "nominal": "ignore → all zeros",
+    "high_cardinality": "infrequent column"
+  },
+  "for_04": {
+    "split_columns": [
+      "arrival_date",
+      "booking_date",
+      "dup_group_id"
+    ],
+    "split_requirement": {
+      "temporal_split": "by arrival_date: copies share it, so no dup_group_id crosses the cut",
+      "random_cv_inside_train": "GroupKFold by dup_group_id",
+      "test_period": "data ends in 2017-08: a test of the last months is only summer -> cover a full season or report metrics by month and hotel"
+    },
+    "fit": "make_preprocessor(variants[name]['columns']) inside a Pipeline with the model; fit on train only"
+  },
+  "executed_at": "2026-10-20T21:18:26+00:00",
+  "environment": {
+    "python": "3.14.4",
+    "pandas": "2.3.3",
+    "numpy": "2.3.5",
+    "scikit-learn": "1.7.2",
+    "seed": 42
+  }
+}

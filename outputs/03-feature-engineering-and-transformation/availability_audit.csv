@@ -1,0 +1,47 @@
+column,classification,regression,reason
+row_id,no,no,technical id
+hotel,use,use,
+is_canceled,target,no,outcome: unknown at booking
+lead_time,use,use,known at booking by definition
+arrival_date_year,no,no,3 values: a model would extrapolate to years it never saw
+arrival_date_month,no,no,replaced by the season features of arrival_date
+arrival_date_week_number,no,no,replaced by the season features of arrival_date
+arrival_date_day_of_month,no,no,replaced by the season features of arrival_date
+stays_in_weekend_nights,review,use,priced stay; may change before arrival
+stays_in_week_nights,review,use,priced stay; may change before arrival
+adults,review,use,priced stay; may change before arrival
+children,review,use,priced stay; may change before arrival
+babies,review,use,priced stay; may change before arrival
+meal,no,no,replaced by meal_std (02)
+country,no,no,replaced by country_std (02)
+market_segment,no,no,replaced by market_segment_std (02)
+distribution_channel,no,no,replaced by distribution_channel_std (02)
+is_repeated_guest,use,use,
+previous_cancellations,use,use,counts bookings before this one (paper)
+previous_bookings_not_canceled,use,use,counts bookings before this one (paper)
+reserved_room_type,use,use,what was booked (≠ assigned_room_type)
+assigned_room_type,no,no,forbidden in the contract: known after booking (01 §4)
+booking_changes,no,no,forbidden in the contract: known after booking (01 §4)
+deposit_type,no,no,forbidden in the contract: known after booking (01 §4)
+agent,no,no,replaced by agent_std (02)
+company,no,no,replaced by company_std (02)
+days_in_waiting_list,review,review,unknown until the booking is confirmed (paper)
+customer_type,use,use,
+adr,review,target,price of the final stay (paper)
+required_car_parking_spaces,no,no,forbidden in the contract: known after booking (01 §4)
+total_of_special_requests,review,review,requests can be added up to arrival
+reservation_status,no,no,forbidden in the contract: known after booking (01 §4)
+reservation_status_date,no,no,forbidden in the contract: known after booking (01 §4)
+arrival_date,use,use,source of the season features (§2)
+total_nights,review,use,priced stay; may change before arrival
+total_guests,review,use,priced stay; may change before arrival
+country_std,review,review,nationality often fixed at check-in (paper)
+country_missing,no,no,same information as the 'missing' level of country_std
+meal_std,review,use,priced stay; may change before arrival
+agent_std,use,use,
+company_std,use,use,
+market_segment_std,use,use,
+distribution_channel_std,use,use,
+dup_group_id,no,no,"technical id: used to split, never as input"
+dup_group_size,no,no,"counted over the whole file, future and test included → leak"
+in_regression,no,no,scope flag of the regression

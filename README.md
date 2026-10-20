@@ -35,7 +35,7 @@ Uno por laboratorio, en orden. Cada uno lee lo que deja el anterior. Las salidas
 |---|---|---|---|---|
 | 01 | `01-data-collection-and-quality` | ¿Son los datos correctos? ¿Qué está prohibido? ¿Avanza el lote? | `data_contract.json` (esquema y columnas prohibidas) · `quality_summary.json` (decisión del lote) · `scorecard.csv` (controles) | ✅ |
 | 02 | `02-eda-and-cleaning` | ¿Cómo son los datos y cómo se limpian? | `hotels_clean.csv` · `quarantine.csv` (182 filas y su motivo) · `decisions.csv` (qué, por qué, cuántas filas) · `cleaning_report.json` · `fig_eda.png` | ✅ |
-| 03 | `03-feature-engineering-and-transformation` | ¿Qué entra en el modelo y cómo se transforma? | variables derivadas + transformador (sin ajustar) | ⏳ |
+| 03 | `03-feature-engineering-and-transformation` | ¿Qué entra en el modelo y cómo se transforma? | `hotels_features.csv` (limpio + 12 variables derivadas) · `availability_audit.csv` (decisión por columna y tarea) · `feature_manifest.json` (columnas y receta de 4 preprocesadores: clasificación y regresión × `base` / `with_review`; el 04 los reconstruye con `make_preprocessor`) | ✅ |
 | 04 | `04-experimental-design-partitioning-and-metrics` | ¿Cómo se parte y se evalúa? | partición, métricas, *baselines* | ⏳ |
 | 05 | `05-classification` | ¿Qué modelo predice mejor la cancelación? | mejor clasificador | ⏳ |
 | 06 | `06-regression` | ¿Qué modelo predice mejor el `adr`? | mejor regresor | ⏳ |
@@ -47,6 +47,7 @@ Uno por laboratorio, en orden. Cada uno lee lo que deja el anterior. Las salidas
 |---|---|
 | `data/raw/hotels.csv` | Fuente original. **Nunca se modifica**. Se descarga sola si falta |
 | `data/interim/hotels_clean.csv` | Dataset limpio del 02. Se regenera ejecutando el 02 (no se versiona) |
+| `data/processed/hotels_features.csv` | Tabla de variables del 03. Se regenera ejecutando el 03 (no se versiona) |
 | `outputs/<notebook>/` | Lo que genera cada notebook |
 | `notebooks/` | Los notebooks, numerados |
 

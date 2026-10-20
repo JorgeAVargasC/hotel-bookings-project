@@ -7,10 +7,10 @@ Machine Learning · MUCSI 2026/27 · Universidad de Deusto
 | | |
 |---|---|
 | **Qué hace** | Cuando entra una reserva de hotel, predice dos cosas |
-| **Clasificación** | ¿Se cancelará? → `is_canceled` (probabilidad 0–1) |
+| **Clasificación** | ¿Se cancelará o no se presentará (*no-show*)? → `is_canceled` (probabilidad 0–1) |
 | **Regresión** | ¿Cuánto pagará por noche? → `adr` (€/noche) |
 | **Para qué** | Decidir si se pide depósito y cuánta sobreventa hacer |
-| **Momento de predicción** | Al **registrar** la reserva: no se usa nada que se sepa después |
+| **Momento de predicción** | Al **registrar** la reserva: no se usa nada que se sepa después. ⚠️ El dataset guarda los valores del día antes de la llegada (ver 01 §4) |
 | **Datos** | 119 390 reservas reales de dos hoteles de Portugal (2015–2017) |
 
 ## Inicio rápido
@@ -29,57 +29,32 @@ Machine Learning · MUCSI 2026/27 · Universidad de Deusto
 
 ## Notebooks
 
-Uno por sesión de la asignatura, en el mismo orden que los laboratorios. Cada uno lee lo que deja el anterior.
+Uno por laboratorio, en orden. Cada uno lee lo que deja el anterior. Las salidas van a `outputs/<notebook>/`.
 
-| # | Notebook | Pregunta que responde | Entra | Sale | Estado |
-|---|---|---|---|---|---|
-| 01 | `01-data-collection-and-quality` | ¿Son los datos correctos? ¿Qué está prohibido? ¿Avanza el lote? | `content/data/raw/hotels.csv` | contrato, scorecard, columnas prohibidas | ✅ |
-| 02 | `02-eda-and-cleaning` | ¿Cómo son los datos y cómo se limpian? | salidas del 01 | dataset limpio, cuarentena, decisiones | ⏳ |
-| 03 | `03-feature-engineering-and-transformation` | ¿Qué entra en el modelo y cómo se transforma? | dataset limpio | variables derivadas + transformador (sin ajustar) | ⏳ |
-| 04 | `04-experimental-design-partitioning-and-metrics` | ¿Cómo se parte y se evalúa? | dataset limpio + transformador | partición, métricas, *baselines* | ⏳ |
-| 05 | `05-classification` | ¿Qué modelo predice mejor la cancelación? | partición | mejor clasificador | ⏳ |
-| 06 | `06-regression` | ¿Qué modelo predice mejor el `adr`? | partición | mejor regresor | ⏳ |
-| 07 | `07-evaluation-and-error-analysis` | ¿Cómo rinde en test y dónde falla? | los dos modelos | resultados finales, errores, uso combinado | ⏳ |
-
-## Salidas del notebook 01
-
-Carpeta `content/outputs/01-data-collection-and-quality/`:
-
-| Archivo | Qué contiene |
-|---|---|
-| `source_inventory.csv` | Fichero recibido: filas, columnas, tamaño, hash |
-| `availability_at_prediction_time.csv` | Cada columna: ¿se conoce al reservar? (sí / dudoso / no) |
-| `quality_metrics.csv` | Métricas por dimensión: completitud, unicidad, validez, consistencia |
-| `scorecard.csv` | Cada control: umbral, severidad, acción, PASS/FAIL |
-| `data_contract.json` | Qué se garantiza al notebook 02: esquema, propósito, calidad |
-| `quality_summary.json` | Decisión del lote + decisiones pendientes para el 02 |
-| `run_manifest.json` | Fuente, hash, entorno y decisión: cómo reproducir la ejecución |
+| # | Notebook | Pregunta que responde | Sale | Estado |
+|---|---|---|---|---|
+| 01 | `01-data-collection-and-quality` | ¿Son los datos correctos? ¿Qué está prohibido? ¿Avanza el lote? | `data_contract.json` (esquema y columnas prohibidas) · `quality_summary.json` (decisión del lote) · `scorecard.csv` (controles) | ✅ |
+| 02 | `02-eda-and-cleaning` | ¿Cómo son los datos y cómo se limpian? | `hotels_clean.csv` · `quarantine.csv` (182 filas y su motivo) · `decisions.csv` (qué, por qué, cuántas filas) · `cleaning_report.json` · `fig_eda.png` | ✅ |
+| 03 | `03-feature-engineering-and-transformation` | ¿Qué entra en el modelo y cómo se transforma? | variables derivadas + transformador (sin ajustar) | ⏳ |
+| 04 | `04-experimental-design-partitioning-and-metrics` | ¿Cómo se parte y se evalúa? | partición, métricas, *baselines* | ⏳ |
+| 05 | `05-classification` | ¿Qué modelo predice mejor la cancelación? | mejor clasificador | ⏳ |
+| 06 | `06-regression` | ¿Qué modelo predice mejor el `adr`? | mejor regresor | ⏳ |
+| 07 | `07-evaluation-and-error-analysis` | ¿Cómo rinde en test y dónde falla? | resultados finales, errores, uso combinado | ⏳ |
 
 ## Estructura de carpetas
 
 | Ruta | Contenido |
 |---|---|
-| `content/data/raw/hotels.csv` | Fuente original. **Nunca se modifica**. Se descarga sola si falta |
+| `data/raw/hotels.csv` | Fuente original. **Nunca se modifica**. Se descarga sola si falta |
+| `data/interim/hotels_clean.csv` | Dataset limpio del 02. Se regenera ejecutando el 02 (no se versiona) |
+| `outputs/<notebook>/` | Lo que genera cada notebook |
 | `notebooks/` | Los notebooks, numerados |
-| `content/outputs/<notebook>/` | Lo que genera cada notebook |
-| `requirements.txt` | Dependencias |
 
-## Datos
+## Datos y reproducibilidad
 
 | | |
 |---|---|
-| **Fuente** | Antonio, de Almeida y Nunes (2019). *Hotel booking demand datasets*. Data in Brief 22, 41–49 |
-| **DOI** | https://doi.org/10.1016/j.dib.2018.11.126 |
-| **Licencia** | CC BY 4.0 |
-| **Copia usada** | H1 (Resort) + H2 (City) unidos con la columna `hotel` — [TidyTuesday 2020-02-11](https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv) |
+| **Fuente** | Antonio, de Almeida y Nunes (2019). *Hotel booking demand datasets*. Data in Brief 22, 41–49 · [DOI](https://doi.org/10.1016/j.dib.2018.11.126) · CC BY 4.0 |
+| **Copia usada** | H1 (Resort) + H2 (City) unidos con la columna `hotel` — [TidyTuesday 2020-02-11](https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-02-11/hotels.csv) · 119 390 filas × 32 columnas |
 | **SHA-256** | `7c2ae42a7353905ea136e5c2287f17c92c5435826598bfbb8491c6f0c7b1fc06` (lo comprueba el notebook 01) |
-| **Tamaño** | 119 390 filas × 32 columnas |
-
-## Reproducibilidad
-
-| | |
-|---|---|
-| **Python** | Probado con 3.10 y 3.13 |
-| **Semilla** | `SEED = 42` en todos los notebooks |
-| **Dependencias** | Fijadas en `requirements.txt` |
-| **Python 3.14** | Instala numpy 2.3.x en lugar de 2.2.6 (2.2.6 no tiene instalador para 3.14) |
+| **Entorno** | Ejecutado con Python 3.14.4 · `SEED = 42` · dependencias fijadas en `requirements.txt` (en 3.14 se instala numpy 2.3.x: 2.2.6 no tiene instalador) |

@@ -1,0 +1,258 @@
+{
+  "identity": {
+    "dataset": "hotel-booking-demand",
+    "version": "1.0.0",
+    "doi": "10.1016/j.dib.2018.11.126",
+    "license": "CC BY 4.0",
+    "sha256": "7c2ae42a7353905ea136e5c2287f17c92c5435826598bfbb8491c6f0c7b1fc06"
+  },
+  "purpose": {
+    "targets": {
+      "classification": "is_canceled",
+      "regression": "adr"
+    },
+    "prediction_time": "when the booking is registered",
+    "data_snapshot": "day before arrival (paper): stored values may differ from those at booking",
+    "forbidden_features": [
+      "required_car_parking_spaces",
+      "booking_changes",
+      "assigned_room_type",
+      "deposit_type",
+      "reservation_status",
+      "reservation_status_date"
+    ],
+    "features_under_review": [
+      "stays_in_*_nights",
+      "adults / children / babies",
+      "meal",
+      "days_in_waiting_list",
+      "total_of_special_requests",
+      "country",
+      "adr (as a classification input)"
+    ]
+  },
+  "schema": {
+    "hotel": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "is_canceled": {
+      "type": "binary",
+      "role": "target_cls"
+    },
+    "lead_time": {
+      "type": "count_days",
+      "role": "feature"
+    },
+    "arrival_date_year": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "arrival_date_month": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "arrival_date_week_number": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "arrival_date_day_of_month": {
+      "type": "date_part",
+      "role": "feature"
+    },
+    "stays_in_weekend_nights": {
+      "type": "count",
+      "role": "feature"
+    },
+    "stays_in_week_nights": {
+      "type": "count",
+      "role": "feature"
+    },
+    "adults": {
+      "type": "count",
+      "role": "feature"
+    },
+    "children": {
+      "type": "count",
+      "role": "feature",
+      "sentinel": {
+        "value": "NA",
+        "meaning": "missing",
+        "source": "our decision"
+      }
+    },
+    "babies": {
+      "type": "count",
+      "role": "feature"
+    },
+    "meal": {
+      "type": "categorical",
+      "role": "feature",
+      "sentinel": {
+        "value": "Undefined",
+        "meaning": "same as SC (no meal plan)",
+        "source": "paper"
+      }
+    },
+    "country": {
+      "type": "categorical",
+      "role": "feature",
+      "sentinel": {
+        "value": "NULL",
+        "meaning": "missing",
+        "source": "our decision"
+      }
+    },
+    "market_segment": {
+      "type": "categorical",
+      "role": "feature",
+      "sentinel": {
+        "value": "Undefined",
+        "meaning": "missing",
+        "source": "our decision"
+      }
+    },
+    "distribution_channel": {
+      "type": "categorical",
+      "role": "feature",
+      "sentinel": {
+        "value": "Undefined",
+        "meaning": "missing",
+        "source": "our decision"
+      }
+    },
+    "is_repeated_guest": {
+      "type": "binary",
+      "role": "feature"
+    },
+    "previous_cancellations": {
+      "type": "count",
+      "role": "feature"
+    },
+    "previous_bookings_not_canceled": {
+      "type": "count",
+      "role": "feature"
+    },
+    "reserved_room_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "assigned_room_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "booking_changes": {
+      "type": "count",
+      "role": "feature"
+    },
+    "deposit_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "agent": {
+      "type": "id_code",
+      "role": "feature",
+      "sentinel": {
+        "value": "NULL",
+        "meaning": "not applicable (booking without an agency)",
+        "source": "paper"
+      }
+    },
+    "company": {
+      "type": "id_code",
+      "role": "feature",
+      "sentinel": {
+        "value": "NULL",
+        "meaning": "not applicable (booking without a company)",
+        "source": "paper"
+      }
+    },
+    "days_in_waiting_list": {
+      "type": "count_days",
+      "role": "feature"
+    },
+    "customer_type": {
+      "type": "categorical",
+      "role": "feature"
+    },
+    "adr": {
+      "type": "continuous",
+      "role": "target_reg",
+      "min": 0,
+      "max": 1000,
+      "unit": "€/night (currency not stated in the paper)"
+    },
+    "required_car_parking_spaces": {
+      "type": "count",
+      "role": "feature"
+    },
+    "total_of_special_requests": {
+      "type": "count",
+      "role": "feature"
+    },
+    "reservation_status": {
+      "type": "categorical",
+      "role": "outcome"
+    },
+    "reservation_status_date": {
+      "type": "date",
+      "role": "outcome"
+    }
+  },
+  "quality": [
+    {
+      "control": "paper_counts",
+      "scope": "dataset",
+      "severity": "critical",
+      "on_failure": "investigate"
+    },
+    {
+      "control": "source_hash",
+      "scope": "dataset",
+      "severity": "critical",
+      "on_failure": "download again"
+    },
+    {
+      "control": "rows_and_columns",
+      "scope": "dataset",
+      "severity": "critical",
+      "on_failure": "investigate"
+    },
+    {
+      "control": "targets_valid",
+      "scope": "dataset",
+      "severity": "critical",
+      "on_failure": "investigate"
+    },
+    {
+      "control": "period_covered",
+      "scope": "dataset",
+      "severity": "critical",
+      "on_failure": "investigate"
+    },
+    {
+      "control": "exact_copies_<5%",
+      "scope": "dataset",
+      "severity": "warning",
+      "on_failure": "define a duplicates policy"
+    },
+    {
+      "control": "impossible_rows",
+      "scope": "row",
+      "severity": "critical",
+      "on_failure": "quarantine"
+    },
+    {
+      "control": "zero_nights",
+      "scope": "row",
+      "severity": "warning",
+      "on_failure": "exclude from the regression"
+    },
+    {
+      "control": "forbidden_columns",
+      "scope": "features",
+      "severity": "critical",
+      "on_failure": "exclude from the features"
+    }
+  ]
+}

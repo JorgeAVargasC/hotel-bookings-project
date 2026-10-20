@@ -1,0 +1,10 @@
+control,scope,passed,severity,on_failure
+paper_counts,dataset,True,critical,investigate
+source_hash,dataset,True,critical,download again
+rows_and_columns,dataset,True,critical,investigate
+targets_valid,dataset,True,critical,investigate
+period_covered,dataset,True,critical,investigate
+exact_copies_<5%,dataset,False,warning,define a duplicates policy
+impossible_rows,row,False,critical,quarantine
+zero_nights,row,False,warning,exclude from the regression
+forbidden_columns,features,False,critical,exclude from the features

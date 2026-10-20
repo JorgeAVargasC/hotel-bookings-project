@@ -1,0 +1,19 @@
+{
+  "dataset": "hotel-booking-demand",
+  "decision": "CONTINUE_WITH_CONDITIONS",
+  "rows_to_quarantine": 182,
+  "rows_excluded_from_regression": 715,
+  "pending_decisions_for_02": [
+    "exact duplicates: drop, group within the split or weight",
+    "adr = 0 with nights > 0 (mostly Complementary): exclude from the regression or not",
+    "CN versus CHN: unify or not (compare both populations)",
+    "sentinels: NULL in agent/company = 'none'; NULL in country = 'unknown'; Undefined in meal = SC"
+  ],
+  "executed_at": "2026-10-20T09:45:09+00:00",
+  "environment": {
+    "python": "3.14.4",
+    "pandas": "2.3.3",
+    "numpy": "2.3.5",
+    "seed": 42
+  }
+}

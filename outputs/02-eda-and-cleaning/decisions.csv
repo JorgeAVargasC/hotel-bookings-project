@@ -1,7 +1,7 @@
 step,decision,why,rows
 not applicable,NULL in agent/company → 'none',the paper defines NULL as 'no agency / no company',128933
 missing country,keep empty + country_missing,"not random: mostly Resort, cancels much less",488
-duplicates,keep + dup_group_id (split by group in 04),dropping changes the cancel rate from 37 % to 27.5 %,40165
+duplicates,keep + dup_group_id (never in two partitions),dropping changes the cancel rate from 37 % to 27.5 %,40165
 impossible rows,quarantine,"negative adr, adr 10× the 2nd highest value, or no guests",182
 0 nights,in_regression = False,no nights → no price per night,715
 normalization,meal Undefined → SC,the paper: same meaning written two ways,1169

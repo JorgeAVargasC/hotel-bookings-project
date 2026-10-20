@@ -1,7 +1,7 @@
 {
   "identity": {
     "dataset": "hotel-booking-demand",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "doi": "10.1016/j.dib.2018.11.126",
     "license": "CC BY 4.0",
     "sha256": "7c2ae42a7353905ea136e5c2287f17c92c5435826598bfbb8491c6f0c7b1fc06"
@@ -21,15 +21,22 @@
       "reservation_status",
       "reservation_status_date"
     ],
-    "features_under_review": [
-      "stays_in_*_nights",
-      "adults / children / babies",
-      "meal",
-      "days_in_waiting_list",
-      "total_of_special_requests",
-      "country",
-      "adr (as a classification input)"
-    ]
+    "features_under_review": {
+      "classification": [
+        "stays_in_*_nights",
+        "adults / children / babies",
+        "meal",
+        "days_in_waiting_list",
+        "total_of_special_requests",
+        "country",
+        "adr (as an input)"
+      ],
+      "regression": [
+        "days_in_waiting_list",
+        "total_of_special_requests",
+        "country"
+      ]
+    }
   },
   "schema": {
     "hotel": {
@@ -139,15 +146,15 @@
     },
     "assigned_room_type": {
       "type": "categorical",
-      "role": "feature"
+      "role": "forbidden"
     },
     "booking_changes": {
       "type": "count",
-      "role": "feature"
+      "role": "forbidden"
     },
     "deposit_type": {
       "type": "categorical",
-      "role": "feature"
+      "role": "forbidden"
     },
     "agent": {
       "type": "id_code",
@@ -184,7 +191,7 @@
     },
     "required_car_parking_spaces": {
       "type": "count",
-      "role": "feature"
+      "role": "forbidden"
     },
     "total_of_special_requests": {
       "type": "count",

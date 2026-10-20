@@ -3,14 +3,14 @@
     "path": "data/raw/hotels.csv",
     "sha256": "7c2ae42a7353905ea136e5c2287f17c92c5435826598bfbb8491c6f0c7b1fc06",
     "rows": 119390,
-    "contract_version": "1.0.0"
+    "contract_version": "1.1.0"
   },
   "output": {
     "path": "data/interim/hotels_clean.csv",
     "rows": 119208,
     "columns": 46,
     "rows_in_regression": 117398,
-    "signature": "819279bae758da0bce1c429b8ff2f9a1152957da95946cb086bd9d8095eca381"
+    "signature": "8bd9d0f20425e9af93567c0047cbec4a60fc55326fc7911d6d0ca9ca8f98de81"
   },
   "quarantine": {
     "no_guests": 180,
@@ -26,15 +26,22 @@
       "reservation_status",
       "reservation_status_date"
     ],
-    "features_under_review": [
-      "stays_in_*_nights",
-      "adults / children / babies",
-      "meal",
-      "days_in_waiting_list",
-      "total_of_special_requests",
-      "country",
-      "adr (as a classification input)"
-    ],
+    "features_under_review": {
+      "classification": [
+        "stays_in_*_nights",
+        "adults / children / babies",
+        "meal",
+        "days_in_waiting_list",
+        "total_of_special_requests",
+        "country",
+        "adr (as an input)"
+      ],
+      "regression": [
+        "days_in_waiting_list",
+        "total_of_special_requests",
+        "country"
+      ]
+    },
     "use_std_columns_instead_of": [
       "country",
       "meal",
@@ -43,14 +50,18 @@
       "market_segment",
       "distribution_channel"
     ],
-    "split_requirement": "group by dup_group_id (no copy in two partitions)",
+    "split_requirement": {
+      "temporal_split": "by arrival_date: copies share it, so no dup_group_id crosses the cut",
+      "random_cv_inside_train": "GroupKFold by dup_group_id",
+      "test_period": "data ends in 2017-08: a test of the last months is only summer -> cover a full season or report metrics by month and hotel"
+    },
     "learn_on_train_only": [
       "children median",
       "rare country threshold",
       "scaling"
     ]
   },
-  "executed_at": "2026-10-20T09:45:24+00:00",
+  "executed_at": "2026-10-20T11:48:28+00:00",
   "environment": {
     "python": "3.14.4",
     "pandas": "2.3.3",

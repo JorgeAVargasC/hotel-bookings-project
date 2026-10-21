@@ -23,6 +23,7 @@
       "booking_changes",
       "assigned_room_type",
       "deposit_type",
+      "country",
       "reservation_status",
       "reservation_status_date"
     ],
@@ -33,13 +34,11 @@
         "meal",
         "days_in_waiting_list",
         "total_of_special_requests",
-        "country",
         "adr (as an input)"
       ],
       "regression": [
         "days_in_waiting_list",
-        "total_of_special_requests",
-        "country"
+        "total_of_special_requests"
       ]
     },
     "use_std_columns_instead_of": [
@@ -61,7 +60,7 @@
       "scaling"
     ]
   },
-  "executed_at": "2026-10-20T11:48:28+00:00",
+  "executed_at": "2026-10-21T22:17:37+00:00",
   "environment": {
     "python": "3.14.4",
     "pandas": "2.3.3",

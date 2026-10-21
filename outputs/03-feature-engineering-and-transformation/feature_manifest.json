@@ -112,12 +112,11 @@
           "meal_std"
         ],
         "high_cardinality": [
-          "country_std",
           "agent_std",
           "company_std"
         ]
       },
-      "output_columns_in_check": 96
+      "output_columns_in_check": 77
     },
     "regression_base": {
       "columns": {
@@ -185,12 +184,11 @@
           "meal_std"
         ],
         "high_cardinality": [
-          "country_std",
           "agent_std",
           "company_std"
         ]
       },
-      "output_columns_in_check": 95
+      "output_columns_in_check": 76
     }
   },
   "learned_on_train_only": [
@@ -216,7 +214,7 @@
     },
     "fit": "make_preprocessor(variants[name]['columns']) inside a Pipeline with the model; fit on train only"
   },
-  "executed_at": "2026-10-20T21:18:26+00:00",
+  "executed_at": "2026-10-21T22:18:57+00:00",
   "environment": {
     "python": "3.14.4",
     "pandas": "2.3.3",

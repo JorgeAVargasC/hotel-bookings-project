@@ -13,7 +13,7 @@ adults,review,use,priced stay; may change before arrival
 children,review,use,priced stay; may change before arrival
 babies,review,use,priced stay; may change before arrival
 meal,no,no,replaced by meal_std (02)
-country,no,no,replaced by country_std (02)
+country,no,no,forbidden in the contract: known after booking (01 §4)
 market_segment,no,no,replaced by market_segment_std (02)
 distribution_channel,no,no,replaced by distribution_channel_std (02)
 is_repeated_guest,use,use,
@@ -35,7 +35,7 @@ reservation_status_date,no,no,forbidden in the contract: known after booking (01
 arrival_date,use,use,source of the season features (§2)
 total_nights,review,use,priced stay; may change before arrival
 total_guests,review,use,priced stay; may change before arrival
-country_std,review,review,nationality often fixed at check-in (paper)
+country_std,no,no,country is forbidden in the contract (01 §4)
 country_missing,no,no,same information as the 'missing' level of country_std
 meal_std,review,use,priced stay; may change before arrival
 agent_std,use,use,

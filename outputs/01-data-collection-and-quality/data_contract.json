@@ -18,6 +18,7 @@
       "booking_changes",
       "assigned_room_type",
       "deposit_type",
+      "country",
       "reservation_status",
       "reservation_status_date"
     ],
@@ -28,13 +29,11 @@
         "meal",
         "days_in_waiting_list",
         "total_of_special_requests",
-        "country",
         "adr (as an input)"
       ],
       "regression": [
         "days_in_waiting_list",
-        "total_of_special_requests",
-        "country"
+        "total_of_special_requests"
       ]
     }
   },
@@ -98,12 +97,12 @@
       "sentinel": {
         "value": "Undefined",
         "meaning": "same as SC (no meal plan)",
-        "source": "paper"
+        "source": "paper (Table 1, p. 44)"
       }
     },
     "country": {
       "type": "categorical",
-      "role": "feature",
+      "role": "forbidden",
       "sentinel": {
         "value": "NULL",
         "meaning": "missing",
@@ -162,7 +161,7 @@
       "sentinel": {
         "value": "NULL",
         "meaning": "not applicable (booking without an agency)",
-        "source": "paper"
+        "source": "paper (§2, p. 45)"
       }
     },
     "company": {
@@ -171,7 +170,7 @@
       "sentinel": {
         "value": "NULL",
         "meaning": "not applicable (booking without a company)",
-        "source": "paper"
+        "source": "paper (§2, p. 45)"
       }
     },
     "days_in_waiting_list": {
